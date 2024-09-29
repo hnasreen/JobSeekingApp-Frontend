@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
@@ -6,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../../main";
 
 const Application = () => {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
@@ -14,7 +12,7 @@ const Application = () => {
   const [address, setAddress] = useState("");
   const [resume, setResume] = useState(null);
 
-  const { isAuthorized, user,token } = useContext(Context);
+  const { isAuthorized, user, token } = useContext(Context);
 
   const navigateTo = useNavigate();
 
@@ -38,13 +36,13 @@ const Application = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/application/post",
+        `${process.env.API_BASE_URL}/api/v1/application/post`,
         formData,
         {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -105,14 +103,16 @@ const Application = () => {
             >
               Select Resume
             </label>
-            
+
             <input
               type="file"
-              accept=".pdf"
+              // accept=".pdf"
               onChange={handleFileChange}
               style={{ width: "100%" }}
             />
-            <p style={{color:'red',textAlign:'left'}}>Upload only PDF files*</p>
+            <p style={{ color: "red", textAlign: "left" }}>
+              Upload only PDF files*
+            </p>
           </div>
           <button type="submit">Send Application</button>
         </form>

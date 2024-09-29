@@ -23,7 +23,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/user/register",
+        `${process.env.API_BASE_URL}/api/v1/user/register`,
         { name, phone, email, role, password },
         {
           headers: {
@@ -33,10 +33,6 @@ const Register = () => {
         }
       );
       toast.success(data.message);
-      // localStorage.setItem("token",data?.token)
-      // console.log("RegisterToken:",data.token)
-      // setToken(data.token);
-      // setUser(data.user)
       setName("");
       setEmail("");
       setPassword("");

@@ -15,7 +15,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/api/v1/job/${id}`, {
+      .get(`${process.env.API_BASE_URL}/api/v1/job/${id}`, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,

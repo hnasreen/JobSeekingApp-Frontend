@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/user/login",
+        `${process.env.API_BASE_URL}/api/v1/user/login`,
         { email, password, role },
         {
           headers: {

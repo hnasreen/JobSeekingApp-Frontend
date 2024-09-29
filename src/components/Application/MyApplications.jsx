@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../main";
 import axios from "axios";
@@ -11,32 +10,38 @@ const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [resumeUrl, setResumeUrl] = useState("");
-  const { isAuthorized,token } = useContext(Context);
+  const { isAuthorized, token } = useContext(Context);
   const navigateTo = useNavigate();
 
   useEffect(() => {
     try {
       if (user && user.role === "Employer") {
         axios
-          .get("http://localhost:4000/api/v1/application/employer/getall", {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
-            },
-            withCredentials: true,
-          })
+          .get(
+            `${process.env.API_BASE_URL}/api/v1/application/employer/getall`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             setApplications(res.data.applications);
           });
       } else {
         axios
-          .get("http://localhost:4000/api/v1/application/jobseeker/getall", {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
-            },
-            withCredentials: true,
-          })
+          .get(
+            `${process.env.API_BASE_URL}/api/v1/application/jobseeker/getall`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             setApplications(res.data.applications);
           });
@@ -53,10 +58,10 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
+        .delete(`${process.env.API_BASE_URL}/api/v1/application/delete/${id}`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         })
@@ -74,6 +79,7 @@ const MyApplications = () => {
   const openModal = (Url) => {
     setResumeUrl(Url);
     setModalOpen(true);
+    console.log("Clicked");
   };
 
   const closeModal = () => {
@@ -123,9 +129,7 @@ const MyApplications = () => {
           )}
         </div>
       )}
-      {modalOpen && (
-        <ResumeModal Url={resumeUrl} onClose={closeModal} />
-      )}
+      {modalOpen && <ResumeModal Url={resumeUrl} onClose={closeModal} />}
     </section>
   );
 };
@@ -153,13 +157,30 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
             <span>CoverLetter:</span> {element.coverLetter}
           </p>
         </div>
-        <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
-        </div>
+        <div
+        className="resume"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%', // ensures centering both vertically and horizontally
+        }}
+      >
+        <button
+          onClick={() => openModal(element.resume.url)}
+          style={{
+            backgroundColor: '#D76503', // orange background
+            color: '#fff', // white text
+            border: 'none',
+            padding: '10px 20px', // padding to adjust button size
+            borderRadius: '5px', // rounded corners
+            cursor: 'pointer',
+            width: 'auto', // button takes up only needed space
+          }}
+        >
+          Resume
+        </button>
+      </div>
         <div className="btn_area">
           <button onClick={() => deleteApplication(element._id)}>
             Delete Application
@@ -191,13 +212,30 @@ const EmployerCard = ({ element, openModal }) => {
             <span>CoverLetter:</span> {element.coverLetter}
           </p>
         </div>
-        <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
-        </div>
+        <div
+        className="resume"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%', // ensures centering both vertically and horizontally
+        }}
+      >
+        <button
+          onClick={() => openModal(element.resume.url)}
+          style={{
+            backgroundColor: '#D76503', // orange background
+            color: '#fff', // white text
+            border: 'none',
+            padding: '10px 20px', // padding to adjust button size
+            borderRadius: '5px', // rounded corners
+            cursor: 'pointer',
+            width: 'auto', // button takes up only needed space
+          }}
+        >
+          Resume
+        </button>
+      </div>
       </div>
     </>
   );

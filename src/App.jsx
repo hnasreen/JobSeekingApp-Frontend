@@ -24,7 +24,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/getuser",
+          `${process.env.API_BASE_URL}/api/v1/user/getuser`,
           {
           headers: {
             "content-type": "application/json",

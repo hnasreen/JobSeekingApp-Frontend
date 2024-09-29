@@ -31,6 +31,6 @@ The app ensures role-based access, allowing only employers to post, edit, delete
 
 The application uses JWT for authentication. The token is stored in the browser's localStorage and is used to authenticate API requests. The app has a middleware that authenticates the user and authorizes access based on their role (Employer or Job Seeker).
 
-## Frontend Github Source Code Link:
+## Backend Github Source Code Link:
 
-https://github.com/hnasreen/JobSeekingApp-Frontend
+https://github.com/hnasreen/JobSeekerApp-Backend

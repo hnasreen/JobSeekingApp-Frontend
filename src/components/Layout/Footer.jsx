@@ -11,18 +11,15 @@ const Footer = () => {
     <footer className={isAuthorized ? "footerShow" : "footerHide"}>
       <div>&copy; All Rights Reserved By Nasreen Hayath Basha.</div>
       <div>
-        {/* <Link to={"https://www.facebook.com/profile.php?id="} target="_blank"> */}
+        
           <FaFacebookF />
-        {/* </Link> */}
-        {/* <Link to={"https://www.youtube.com/"} target="_blank"> */}
+
           <FaYoutube />
-        {/* </Link> */}
-        {/* <Link to={"https://www.youtube.com/"} target="_blank"> */}
+
           <FaLinkedin />
-        {/* </Link> */}
-        {/* <Link to={"https://www.instagram.com/"} target="_blank"> */}
+
           <RiInstagramFill />
-        {/* </Link> */}
+
       </div>
     </footer>
   );

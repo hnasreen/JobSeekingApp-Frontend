@@ -18,7 +18,7 @@ const MyJobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/job/getmyjobs",
+          `${process.env.API_BASE_URL}/api/v1/job/getmyjobs`,
           { 
             headers: {
               "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const MyJobs = () => {
   const handleUpdateJob = async (jobId) => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
     await axios
-      .put(`http://localhost:4000/api/v1/job/update/${jobId}`, updatedJob, {
+      .put(`${process.env.API_BASE_URL}/api/v1/job/update/${jobId}`, updatedJob, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
@@ -72,7 +72,7 @@ const MyJobs = () => {
   //Function For Deleting Job
   const handleDeleteJob = async (jobId) => {
     await axios
-      .delete(`http://localhost:4000/api/v1/job/delete/${jobId}`, {
+      .delete(`${process.env.API_BASE_URL}/api/v1/job/delete/${jobId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`

@@ -7,7 +7,8 @@ const ResumeModal = ({ Url, onClose }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <img src={Url} alt="resume" />
+        {/* <img src={Url} alt="resume" /> */}
+        <iframe src={Url} width="100%" height="600px" title="PDF Viewer" />
       </div>
     </div>
   );

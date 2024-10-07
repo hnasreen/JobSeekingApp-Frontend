@@ -15,7 +15,7 @@ const AppWrapper = () => {
    // Check if token exists in localStorage on initial load
    useEffect(() => {
     if (token) {
-      setIsAuthorized(true); // User is considered authorized if token exists
+      setIsAuthorized(true); 
     }
   }, [token]);
   

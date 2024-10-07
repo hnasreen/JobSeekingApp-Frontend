@@ -14,42 +14,31 @@ const MyApplications = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    try {
-      if (user && user.role === "Employer") {
-        axios
-          .get(
-            `${process.env.API_BASE_URL}/api/v1/application/employer/getall`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            setApplications(res.data.applications);
+    if (user && token && isAuthorized) {
+      try {
+        const fetchApplications = async () => {
+          const url =
+            user.role === "Employer"
+              ? `${process.env.API_BASE_URL}/api/v1/application/employer/getall`
+              : `${process.env.API_BASE_URL}/api/v1/application/jobseeker/getall`;
+
+          const response = await axios.get(url, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
           });
-      } else {
-        axios
-          .get(
-            `${process.env.API_BASE_URL}/api/v1/application/jobseeker/getall`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            setApplications(res.data.applications);
-          });
+
+          setApplications(response.data.applications);
+        };
+
+        fetchApplications();
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Failed to fetch applications");
       }
-    } catch (error) {
-      toast.error(error.response.data.message);
     }
-  }, [isAuthorized]);
+  }, [user, token, isAuthorized]); 
 
   if (!isAuthorized) {
     navigateTo("/");

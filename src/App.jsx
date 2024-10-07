@@ -19,7 +19,7 @@ import NotFound from "./components/Not Found/NotFound.jsx";
 import MyJobs from "./components/Job/MyJobs.jsx";
 
 const App = () => {
-  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
+  const { isAuthorized, setIsAuthorized, setUser ,token} = useContext(Context);
   useEffect(() => {
     const fetchUser = async () => {
       try {
